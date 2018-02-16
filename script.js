@@ -101,8 +101,10 @@ function findPawn(){
   if((pawnX < 530) && (pawnY < 310)){// first division zone 1
     if((pawnX < 260) && (pawnY < 160)) {//  == division zone 1.1
       if((pawnX < 130) && (pawnY < 80)) {
-        if (pawnY > 50) {
-          targetOneOn(true);
+        if(score === 0){
+          if (pawnY > 50) {
+            targetOneOn(true);
+          }
         }
         colisionOne(); }
       else if((pawnX > 130) && (pawnY < 80)) { colisionTwo(); }
@@ -298,7 +300,7 @@ function colisionEleven() {
   pawnX = pawn.offsetLeft;
   pawnY = pawn.offsetTop;
   if( ((pawnX+32) > thenL) && ((pawnY+32) > thenT) ){
-    if(score > 0 ) { gameFinish(); }
+    if(score >= 6 ) { gameFinish(); }
     else { gameOver(); }
   }
 }
@@ -434,12 +436,13 @@ function gameOver() {
   gameOver.classList.add('gameOver');
 
   const restart = document.getElementById('restart').addEventListener('click',function () {
-    gameOver.classList.remove('gameOver');
-    gameOver.classList.add('gameInPlay');
-    pawn.style.top = '10px';
-    pawn.style.left = '10px';
-    pawn.classList.remove('pawnOff');
-    pawn.classList.add('pawnGo');
+    // gameOver.classList.remove('gameOver');
+    // gameOver.classList.add('gameInPlay');
+    // pawn.style.top = '10px';
+    // pawn.style.left = '10px';
+    // pawn.classList.remove('pawnOff');
+    // pawn.classList.add('pawnGo');
+    window.location.reload(true);
   })
 }
 function gameFinish() {
@@ -450,13 +453,8 @@ function gameFinish() {
   gameOver.classList.remove('gameInPlay');
   gameOver.classList.add('gameFinish');
 
-  const restart = document.getElementById('restart').addEventListener('click',function () {
-    gameOver.classList.remove('gameFinish');
-    gameOver.classList.add('gameInPlay');
-    pawn.style.top = '10px';
-    pawn.style.left = '10px';
-    pawn.classList.remove('pawnOff');
-    pawn.classList.add('pawnGo');
+  const newGame = document.getElementById('newGame').addEventListener('click',function () {
+    window.location.reload(true);
   })
 }
 
