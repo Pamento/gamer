@@ -69,14 +69,20 @@ let score = 0;
 let pawn = document.getElementById('pawn');
 window.addEventListener('keypress', keyControl);
 let pawnY,pawnX;
+
+
+
+function pos() {
   pawnX = pawn.offsetLeft;
   pawnY = pawn.offsetTop;
+}
 
 function keyControl(e) {
   if(e.keyCode === 38){ pawn.style.top = pawnY +(-2)+'px';}// keyboard: flesh up
   if(e.keyCode === 40){ pawn.style.top = pawnY +2+'px';}// keyboard: flesh down
   if(e.keyCode === 37){ pawn.style.left = pawnX +(-2)+'px';}// keyboard: flesh left
   if(e.keyCode === 39){ pawn.style.left = pawnX +2+'px';}// keyboard: flesh right
+  pos();
   findPawn();
 }
 
@@ -91,10 +97,8 @@ function keyControl(e) {
 //  =========================================
 
 function findPawn(){
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
-
-  if ((pawnX < 0) || (pawnY < 0) || (pawnX > (w - 32) ) || (pawnY > (h - 32)) ) {
+  pos();
+  if ((pawnX <= 0) || (pawnY <= 0) || (pawnX >= (w - 32) ) || (pawnY >= (h - 32)) ) {
     gameOver();
   }
 
@@ -206,8 +210,7 @@ function findPawn(){
 
 //  1
 function colisionOne() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if (((pawnX+32) >= oneL) && ( pawnY <= (oneT+oneH )) && (pawnX < (oneL+oneW) ) ) {
     gameOver();
   }
@@ -217,203 +220,179 @@ function colisionOne() {
 }
 //  2
 function colisionTwo() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnX< (oneL+oneW)) || ((pawnY+32)>twoT) ){
     gameOver();
   }
 }
 //  3
 function colisionTree() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( ((pawnX+32)>nineL) && ((pawnY+32)>nineT) ){
     gameOver();
   }
 }
 //  4
 function colisionFour() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (((pawnX+32)>nineL) && (pawnY < (nineT+nineH))) || ((pawnX < (twoL+twoW)) && ((pawnY+32) > twoT)) ){
     gameOver();
   }
 }
 //  5
 function colisionFive() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (nineT+nineH)) || ((pawnY+32) > sevenT)){
     gameOver();
   }
 }
 //  6
 function colisionSix() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (((pawnX+32) >= twoL) && ( pawnY <= (twoT+twoH))) || ( (pawnX+32)>treeL && ((pawnY+32) > treeT) ) ){
     gameOver();
   }
 }
 //  6extend
 function colisionSixExtend() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if ( (pawnX+32) > sevenL){
     gameOver();
   }
 }
 //  7
 function colisionSeven() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnX < (twoL+twoW)) || (pawnX+32) > sevenL ){
     gameOver();
   }
 }
 //  8
 function colisionEight() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnX < (treeL+treeW)) || (pawnY < (sevenT+sevenH)) || (((pawnX+32) > sixL) && ((pawnY+32) > sixT)) ) {
     gameOver();
   }
 }
 //  9
 function colisionNine() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( ((pawnY+32) > nineT) && (pawnX < (nineL+nineW)) ){
     gameOver();
   }
 }
 //  10
 function colisionThen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (nineT+nineH)) && (pawnX < (nineL+nineW)) || (((pawnY+32) > sevenT) && pawnX < (sevenL+sevenW)) ){
     gameOver();
   }
 }
 //  11
 function colisionEleven() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( ((pawnX+32) > thenL) && ((pawnY+32) > thenT) ){
     if(score >= 6 ) { gameFinish(); }
-    else { gameOver(); }
+    else if (score < 6) { gameOver(); }
   }
 }
 //  12
 function colisionTwelve() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnX < (thenL+thenW)) && ((pawnY+32) > thenT)){
     if(score >= 6 ) { gameFinish(); }
-    else { gameOver(); }
+    else if (score < 6) { gameOver(); }
   }
 }
 //  13
 function colisionThirteen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
-  if( (pawnY < (sevenT+sevenH)) || ( (pawnY+32) > sixT) && pawnX < (sixL+sixW) ){
+  pos();
+  if( (pawnY < (sevenT+sevenH)) || ( (pawnY+32) > sixT) && pawnX < (sixL+sixW) || ((pawnX+32) > eightL) ){
     gameOver();
   }
 }
 //  14
 function colisionFourteen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
-  if( (pawnY < (sevenT+sevenH)) || ((pawnX+32) < eightL) ){
+  pos();
+  if( (pawnY < (sevenT+sevenH)) || ((pawnX+32) > eightL) ){
     gameOver();
   }
 }
 //  15
 function colisionFifteen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( ((pawnX+32) > thenL) && (pawnY < (thenT+thenH)) && (pawnX < (thenL+thenW)) ){
     if(score >= 6 ) { gameFinish(); }
-    else { gameOver(); }
+    else if (score < 6) { gameOver(); }
   }
 }
 //  16
 function colisionSixteen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( ((pawnY+32) > eightT) && (pawnX < (eightL+eightW)) ){
     gameOver();
   }
 }
 //  17
 function colisionSeventeen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  // pos();
+  pos();
   if( ((pawnY+32) > fourT) && ((pawnX+32) > fourL) && (pawnY < (fourT+fourW)) ){
     gameOver();
   }
 }
 //  18
 function colisionEighteen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (treeT+treeH)) || ((pawnY+32) > fourT) ){
     gameOver();
   }
 }
 //  19
 function colisionNineteen() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (((pawnY+32) > fourT) && (pawnX < (fourL+fourW))) || ((pawnX+32) > fiveL) || (pawnY < (treeT+treeH)) ){
     gameOver();
   }
 }
 // 20
 function colisionTwenty() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (((pawnY+32) > fiveT) && (pawnX < (fiveL+fiveW))) || (((pawnX+32) > sixL) && (pawnY < (sixT+sixH))) ){
     gameOver();
   }
 }
 // 21
 function colisionTwentyOne() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( ((pawnX < (fourL+fourW)) && (pawnY < (fourT+fourH))) || (((pawnX+32) > fiveL) && (pawnY < (fiveT+fiveH))) ){
     gameOver();
   }
 }
 //  22
 function colisionTwentyTwo() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (fiveT+fiveH)) && (pawnX < (fiveL+fiveW)) ){
     gameOver();
   }
 }
 //  23
 function colisionTwentyTree() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (sixT+sixH)) && (pawnX < (sixL+sixW)) ){
     gameOver();
   }
 }
 // 24
 function colisionTwentyFour() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (eightT+eightH)) ){
     gameOver();
   }
 }
 //  25
 // function colisionTwentyFive() {
-//   pawnX = pawn.offsetLeft;
-//   pawnY = pawn.offsetTop;
+//   pos();
 //   if(  ){
 //     gameOver();
 //   }
@@ -421,7 +400,7 @@ function colisionTwentyFour() {
 //  26
 function colisionTwentySix() {
   pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   if( (pawnY < (eightT+eightH)) && (pawnX < (eightL+eightW)) ){
     gameOver();
   }
@@ -436,12 +415,6 @@ function gameOver() {
   gameOver.classList.add('gameOver');
 
   const restart = document.getElementById('restart').addEventListener('click',function () {
-    // gameOver.classList.remove('gameOver');
-    // gameOver.classList.add('gameInPlay');
-    // pawn.style.top = '10px';
-    // pawn.style.left = '10px';
-    // pawn.classList.remove('pawnOff');
-    // pawn.classList.add('pawnGo');
     window.location.reload(true);
   })
 }
@@ -463,8 +436,7 @@ function gameFinish() {
  *  mobile elements of game
  */
 function targetOneOn(ifIsTouched) {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   const targetOne = document.getElementById('targetOne');
 
   if (ifIsTouched) {
@@ -478,8 +450,7 @@ function targetOneOn(ifIsTouched) {
 }
 
 function targetTwoOn(ifIsTouched) {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   const targetTwo = document.getElementById('targetTwo');
 
   if (ifIsTouched) {
@@ -493,8 +464,7 @@ function targetTwoOn(ifIsTouched) {
 }
 
 function targetTreeOn(ifIsTouched) {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
+  pos();
   const targetTree = document.getElementById('targetTree');
 
   if (ifIsTouched) {
@@ -508,9 +478,9 @@ function targetTreeOn(ifIsTouched) {
 }
 
 function targetOneOut() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
-  if((pawnX === 538) && (pawnY === 6)) {
+  const targetOneXY = document.getElementById('targetOne');
+  pos();
+  if((pawnX === targetOneXY.offsetLeft) && (pawnY === targetOneXY.offsetTop)) {
     score += 1;
     nameOfPawn(score);
     targetOneOn(false);
@@ -518,9 +488,9 @@ function targetOneOut() {
   }
 }
 function targetTwoOut() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
-    if((pawnX === 568) && (pawnY === 252)) {
+  const targetTwoXY  = document.getElementById('targetTwo');
+  pos();
+    if((pawnX === targetTwoXY.offsetLeft) && (pawnY === targetTwoXY.offsetTop)) {
       score += 2;
       nameOfPawn(score);
       targetTwoOn(false);
@@ -528,9 +498,9 @@ function targetTwoOut() {
   }
 }
 function targetTreeOut() {
-  pawnX = pawn.offsetLeft;
-  pawnY = pawn.offsetTop;
-    if((pawnX === 68) && (pawnY === 606)) {
+  const targetTreeXY = document.getElementById('targetTree');
+  pos();
+    if((pawnX === targetTreeXY.offsetLeft) && (pawnY === targetTreeXY.offsetTop)) {
       score += 3;
       nameOfPawn(score);
       targetTreeOn(false);
