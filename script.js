@@ -105,6 +105,7 @@ function findPawn(){
   if((pawnX < 530) && (pawnY < 310)){// first division zone 1
     if((pawnX < 260) && (pawnY < 160)) {//  == division zone 1.1
       if((pawnX < 130) && (pawnY < 80)) {
+        if(pawnY > 10){ takeDownWelcome(); }
         if(score === 0){
           if (pawnY > 50) {
             targetOneOn(true);
@@ -335,7 +336,6 @@ function colisionSixteen() {
 }
 //  17
 function colisionSeventeen() {
-  // pos();
   pos();
   if( ((pawnY+32) > fourT) && ((pawnX+32) > fourL) && (pawnY < (fourT+fourW)) ){
     gameOver();
@@ -406,6 +406,11 @@ function colisionTwentySix() {
   }
 }
 
+function takeDownWelcome(){
+  const welcome = document.getElementById('eleven');
+  welcome.classList.remove('eleven', 'element');
+  welcome.classList.add('elevenOut');
+}
 function gameOver() {
   const pawn = document.getElementById('pawn');
   pawn.classList.remove('pawnGo');
